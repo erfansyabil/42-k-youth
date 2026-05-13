@@ -4,7 +4,7 @@ from pathlib import Path # Figure out why use Path?
 from src.ingestor import ingest_all_mhtml
 from src.processor import process_all_html
 from src.loader import load_all_jsons
-# from src.run_data_profile import run_data_profile
+from src.profiler import run_data_profile
 
 SOURCE_DIR = Path("data/0_source")
 BRONZE_DIR = Path("data/1_bronze")
@@ -12,9 +12,9 @@ SILVER_DIR = Path("data/2_silver")
 GOLD_DIR = Path("data/3_gold")
 DB_NAME = "jobs.db"
 
-# def run_profiler():
-#     db_path = GOLD_DIR/DB_NAME
-#     run_data_profile(db_path)
+def run_profiler():
+    db_path = GOLD_DIR/DB_NAME
+    run_data_profile(db_path)
 
 def run_gold():
     input_dir = SILVER_DIR
@@ -35,7 +35,7 @@ def run_bronze():
 def main():
     if len(sys.argv) < 2:
         print("Usage: python main.py <command>")
-        print("Commands: ingest | process | load | profile")
+        print("Commands: ingest | process | load | profile | all")
         sys.exit(1)
 
     command = sys.argv[1]
@@ -47,10 +47,13 @@ def main():
             run_silver()
         case "load":
             run_gold()
-        # case "load":
-        #     run_gold()
-        # case "profile":
-        #     run_profiler()
+        case "profile":
+            run_profiler()
+        case "all":
+            run_bronze()
+            run_silver()
+            run_gold()
+            run_profiler()
         case _:
             print(f"❌ Unknown command: '{command}'")
             sys.exit(1)
