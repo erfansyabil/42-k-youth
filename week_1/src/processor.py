@@ -1,4 +1,3 @@
-import json
 from pathlib import Path
 from bs4 import BeautifulSoup
 from pydantic import BaseModel, ValidationError
@@ -77,15 +76,16 @@ def _process_file(html_file: Path) -> JobListing | str:
     company = _extract_company(soup)
     description = _extract_description(soup)
 
-    # Validate each field and report the first missing one
-    if not source_id:
-        return "Missing source_id"
-    if not job_title:
-        return "Missing job_title"
-    if not company:
-        return "Missing company"
-    if not description:
-        return "Missing description"
+    # Skip processing if any required field is missing.
+    required_fields = {
+        "source_id": source_id,
+        "job_title": job_title,
+        "company": company,
+        "description": description,
+    }
+    missing_fields = [name for name, value in required_fields.items() if not value]
+    if missing_fields:
+        return f"Missing required field(s): {', '.join(missing_fields)}"
 
     try:
         return JobListing(
@@ -121,18 +121,21 @@ def _extract_job_title(soup: BeautifulSoup) -> str:
     tag = soup.find(attrs={"data-automation": "job-detail-title"})
     if tag:
         return _clean(tag.get_text(separator=" ", strip=True))
+    return ""
     
 
 def _extract_company(soup: BeautifulSoup) -> str:
     tag = soup.find(attrs={"data-automation": "advertiser-name"})
     if tag:
         return _clean(tag.get_text(separator=" ", strip=True))
+    return ""
 
 
 def _extract_description(soup: BeautifulSoup) -> str:
     tag = soup.find(attrs={"data-automation": "jobAdDetails"})
     if tag:
         return _clean(tag.get_text(separator=" ", strip=True))
+    return ""
 
 
 # ── Helpers ────────────────────────────────────────────────────────────────────
