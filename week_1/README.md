@@ -24,6 +24,11 @@ src/__pycache__/
 .ruff_cache/
 .venv/
 ```
+5. Extract ``0_source`` files into data folder. It should look like:
+
+```markdown
+data/0_source
+```
 
 ## To run the module
 
