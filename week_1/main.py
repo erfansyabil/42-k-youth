@@ -22,15 +22,15 @@ def run_gold():
     load_all_jsons(input_dir, output_dir)
 
 def run_silver():
-		input_dir = BRONZE_DIR
-		output_dir = SILVER_DIR
-		process_all_html(input_dir, output_dir)
+	input_dir = BRONZE_DIR
+	output_dir = SILVER_DIR
+	process_all_html(input_dir, output_dir)
 
 
 def run_bronze():
-       input_dir = SOURCE_DIR
-       output_dir = BRONZE_DIR
-       ingest_all_mhtml(input_dir, output_dir)
+    input_dir = SOURCE_DIR
+    output_dir = BRONZE_DIR
+    ingest_all_mhtml(input_dir, output_dir)
     
 def main():
     if len(sys.argv) < 2:
