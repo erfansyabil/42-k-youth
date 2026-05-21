@@ -1,0 +1,40 @@
+ai
+alibaba cloud
+aws
+data lake.
+data warehouse
+detected.
+docker
+etl
+fastapi
+flask
+gcp
+github actions
+gitlab ci
+google cloud
+grafana
+java
+jenkins
+langchain
+linux
+llamaindex
+llm
+microservices
+ml
+mongodb
+nginx
+nodejs
+none
+oracle
+php
+postgresql
+power bi
+prometheus
+python scripts
+pytorch
+rest apis
+restful api
+scikit-learn
+spring framework
+tensorflow
+version control
