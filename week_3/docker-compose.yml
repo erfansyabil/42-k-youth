@@ -1,0 +1,32 @@
+services:
+  frontend:
+    image: frontend
+    pull_policy: build
+    build:
+      context: frontend
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    networks:
+      - app-network
+    depends_on:
+      - backend
+
+  backend:
+    image: backend
+    pull_policy: build
+    build:
+      context: backend
+    ports:
+      - "8001:8000"
+    env_file:
+      - .env
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

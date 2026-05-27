@@ -1,0 +1,6 @@
+uv.lock
+.venv/
+backend/.venv/
+frontend/.venv/
+frontend/src/__pycache__/
+.env
